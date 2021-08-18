@@ -1,1 +1,1 @@
-go build -o bin/cli . && chmod +x bin/cli
+go build -v -o bin/cli_app cli/*.go && chmod +x bin/cli_app
