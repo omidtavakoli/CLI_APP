@@ -1,13 +1,14 @@
-package main
+package cleaner
 
 import (
+	"CLI_APP/fetch"
 	"errors"
 	"fmt"
 	"testing"
 )
 
 func TestCleanRepos(t *testing.T) {
-	repos, _, _, _, err := FetchData()
+	repos, _, _, _, err := fetch.FetchData()
 	if err != nil {
 		panic(err.Error())
 	}
@@ -29,7 +30,7 @@ func TestCleanRepos(t *testing.T) {
 }
 
 func TestCleanActors(t *testing.T) {
-	_, _, actors, _, err := FetchData()
+	_, _, actors, _, err := fetch.FetchData()
 	if err != nil {
 		panic(err.Error())
 	}
@@ -51,7 +52,7 @@ func TestCleanActors(t *testing.T) {
 }
 
 func TestCleanCommits(t *testing.T) {
-	_, commits, _, _, err := FetchData()
+	_, commits, _, _, err := fetch.FetchData()
 	if err != nil {
 		panic(err.Error())
 	}
@@ -73,7 +74,7 @@ func TestCleanCommits(t *testing.T) {
 }
 
 func TestCleanEvents(t *testing.T) {
-	_, _, _, events, err := FetchData()
+	_, _, _, events, err := fetch.FetchData()
 	if err != nil {
 		panic(err.Error())
 	}
@@ -95,7 +96,7 @@ func TestCleanEvents(t *testing.T) {
 }
 
 func TestReposExistence(t *testing.T) {
-	repos, _, _, _, err := FetchData()
+	repos, _, _, _, err := fetch.FetchData()
 	if err != nil {
 		panic(err.Error())
 	}

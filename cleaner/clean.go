@@ -1,10 +1,12 @@
-package main
+package cleaner
 
 import (
+	"CLI_APP/general"
+	"CLI_APP/model"
 	"sync"
 )
 
-func CleanData(events *[]*Event, commits *[]*Commit, repos *[]*Repo, actors *[]*Actor) {
+func CleanData(events *[]*model.Event, commits *[]*model.Commit, repos *[]*model.Repo, actors *[]*model.Actor) {
 	wg := sync.WaitGroup{}
 	wg.Add(4)
 
@@ -35,9 +37,9 @@ func CleanData(events *[]*Event, commits *[]*Commit, repos *[]*Repo, actors *[]*
 	wg.Wait()
 }
 
-func CleanActors(actors []*Actor) []*Actor {
-	var uniqueActors []*Actor
-	actorsMap := make(map[int64]*Actor)
+func CleanActors(actors []*model.Actor) []*model.Actor {
+	var uniqueActors []*model.Actor
+	actorsMap := make(map[int64]*model.Actor)
 
 	for _, user := range actors {
 		if _, ok := actorsMap[user.ID]; !ok {
@@ -49,25 +51,25 @@ func CleanActors(actors []*Actor) []*Actor {
 	return uniqueActors
 }
 
-func CleanRepos(repos []*Repo) []*Repo {
-	var uniqueRepos []*Repo
+func CleanRepos(repos []*model.Repo) []*model.Repo {
+	var uniqueRepos []*model.Repo
 	//just another type of implementation
-	var reposList IntegerSlice
+	var reposList general.IntegerSlice
 
 	for _, repo := range repos {
 		_, found := reposList.Find(repo.ID)
 		if !found {
 			uniqueRepos = append(uniqueRepos, repo)
-			reposList.slice = append(reposList.slice, repo.ID)
+			reposList.Slice = append(reposList.Slice, repo.ID)
 		}
 	}
 
 	return uniqueRepos
 }
 
-func CleanEvents(events []*Event) []*Event {
-	var uniqueEvents []*Event
-	eventsMap := make(map[int64]*Event)
+func CleanEvents(events []*model.Event) []*model.Event {
+	var uniqueEvents []*model.Event
+	eventsMap := make(map[int64]*model.Event)
 
 	for _, event := range events {
 		if _, ok := eventsMap[event.ID]; !ok {
@@ -79,9 +81,9 @@ func CleanEvents(events []*Event) []*Event {
 	return uniqueEvents
 }
 
-func CleanCommits(commits []*Commit) []*Commit {
-	var uniqueCommits []*Commit
-	commitsMap := make(map[int64]*Commit)
+func CleanCommits(commits []*model.Commit) []*model.Commit {
+	var uniqueCommits []*model.Commit
+	commitsMap := make(map[int64]*model.Commit)
 
 	for _, commit := range commits {
 		if _, ok := commitsMap[commit.EventID]; !ok {

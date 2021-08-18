@@ -1,12 +1,13 @@
-package main
+package calculation
 
 import (
+	"CLI_APP/model"
 	"sort"
 	"sync"
 )
 
-func topActiveUsers(users []*Actor, count int) []string {
-	var actors []Actor
+func topActiveUsers(users []*model.Actor, count int) []string {
+	var actors []model.Actor
 	for i, user := range users {
 		for _, event := range user.Events {
 			if event.Type == "PushEvent" || event.Type == "PullRequestEvent" {
@@ -14,7 +15,7 @@ func topActiveUsers(users []*Actor, count int) []string {
 			}
 		}
 		if user.Activity > 0 {
-			actors = append(actors, Actor{
+			actors = append(actors, model.Actor{
 				ID:       user.ID,
 				UserName: user.UserName,
 				Events:   nil,
@@ -34,8 +35,8 @@ func topActiveUsers(users []*Actor, count int) []string {
 	return topUsers
 }
 
-func topActiveRepos(events []*Event, repos []*Repo, count int) ([]string, []string) {
-	var reposByCommit []Repo
+func topActiveRepos(events []*model.Event, repos []*model.Repo, count int) ([]string, []string) {
+	var reposByCommit []model.Repo
 
 	for _, event := range events {
 		for j, repo := range repos {
@@ -53,7 +54,7 @@ func topActiveRepos(events []*Event, repos []*Repo, count int) ([]string, []stri
 
 	for _, repo := range repos {
 		if repo.CommitsCount > 0 || repo.WatchesCount > 0 {
-			reposByCommit = append(reposByCommit, Repo{
+			reposByCommit = append(reposByCommit, model.Repo{
 				ID:           repo.ID,
 				Name:         repo.Name,
 				CommitsCount: repo.CommitsCount,
@@ -62,7 +63,7 @@ func topActiveRepos(events []*Event, repos []*Repo, count int) ([]string, []stri
 		}
 	}
 
-	reposByWatches := make([]Repo, len(reposByCommit))
+	reposByWatches := make([]model.Repo, len(reposByCommit))
 	copy(reposByWatches, reposByCommit)
 
 	sort.Slice(reposByWatches, func(i, j int) bool {
@@ -84,7 +85,7 @@ func topActiveRepos(events []*Event, repos []*Repo, count int) ([]string, []stri
 	return rbc, rbw
 }
 
-func Calculation(repos []*Repo, actors []*Actor, events []*Event, count int) Stats {
+func Calculation(repos []*model.Repo, actors []*model.Actor, events []*model.Event, count int) model.Stats {
 	wg := sync.WaitGroup{}
 	wg.Add(2)
 
@@ -102,7 +103,7 @@ func Calculation(repos []*Repo, actors []*Actor, events []*Event, count int) Sta
 
 	wg.Wait()
 
-	return Stats{
+	return model.Stats{
 		TopUsers:          users,
 		TopReposByCommit:  topReposByCommit,
 		TopReposByWatches: topReposByWatches,

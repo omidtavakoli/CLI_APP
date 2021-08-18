@@ -1,9 +1,18 @@
-package main
+package general
 
-import "strings"
+import (
+	"strings"
+)
+
+type StringSlice struct {
+	Slice []string
+}
+type IntegerSlice struct {
+	Slice []int64
+}
 
 func (s StringSlice) Find(val string) (int, bool) {
-	for i, item := range s.slice {
+	for i, item := range s.Slice {
 		if item == val {
 			return i, true
 		}
@@ -12,7 +21,7 @@ func (s StringSlice) Find(val string) (int, bool) {
 }
 
 func (s IntegerSlice) Find(val int64) (int, bool) {
-	for i, item := range s.slice {
+	for i, item := range s.Slice {
 		if item == val {
 			return i, true
 		}

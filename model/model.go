@@ -1,4 +1,4 @@
-package main
+package model
 
 type Actor struct {
 	ID       int64  `csv:"id"`
@@ -29,13 +29,6 @@ type Commit struct {
 	SHA     string `csv:"sha"`
 	Message string `csv:"message"`
 	EventID int64  `csv:"event_id"`
-}
-
-type StringSlice struct {
-	slice []string
-}
-type IntegerSlice struct {
-	slice []int64
 }
 
 type Stats struct {

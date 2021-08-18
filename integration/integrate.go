@@ -1,11 +1,11 @@
-package main
+package integration
 
 import (
-	"github.com/sirupsen/logrus"
+	"CLI_APP/model"
 	"sync"
 )
 
-func IntegrateDate(events []*Event, commits []*Commit, repos []*Repo, actors []*Actor) {
+func IntegrateDate(events []*model.Event, commits []*model.Commit, repos []*model.Repo, actors []*model.Actor) {
 	wg := sync.WaitGroup{}
 	wg.Add(2)
 
@@ -36,15 +36,10 @@ func IntegrateDate(events []*Event, commits []*Commit, repos []*Repo, actors []*
 
 			go func() {
 				defer wg2.Done()
-				done := false
 				for _, repo := range repos {
 					if repo.ID == event.RepoID {
-						done = true
 						event.Repo = repo
 					}
-				}
-				if !done {
-					logrus.Info(event)
 				}
 			}()
 

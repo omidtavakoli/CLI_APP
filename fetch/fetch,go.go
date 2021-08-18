@@ -1,11 +1,13 @@
-package main
+package fetch
 
 import (
+	"CLI_APP/model"
+	_ "embed"
 	"github.com/gocarina/gocsv"
 	"os"
 )
 
-func loadCSV(filePath string, out interface{}) error {
+func LoadCSV(filePath string, out interface{}) error {
 	file, err := os.OpenFile(filePath, os.O_RDONLY, os.ModePerm)
 	if err != nil {
 		return err
@@ -19,27 +21,27 @@ func loadCSV(filePath string, out interface{}) error {
 	return nil
 }
 
-func FetchData() ([]*Repo, []*Commit, []*Actor, []*Event, error) {
-	var repos []*Repo
-	err := loadCSV("./data/repos.csv", &repos)
+func FetchData() ([]*model.Repo, []*model.Commit, []*model.Actor, []*model.Event, error) {
+	var repos []*model.Repo
+	err := LoadCSV("./data/repos.csv", &repos)
 	if err != nil {
 		return nil, nil, nil, nil, err
 	}
 
-	var commits []*Commit
-	err = loadCSV("./data/commits.csv", &commits)
+	var commits []*model.Commit
+	err = LoadCSV("./data/commits.csv", &commits)
 	if err != nil {
 		return nil, nil, nil, nil, err
 	}
 
-	var actors []*Actor
-	err = loadCSV("./data/actors.csv", &actors)
+	var actors []*model.Actor
+	err = LoadCSV("./data/actors.csv", &actors)
 	if err != nil {
 		return nil, nil, nil, nil, err
 	}
 
-	var events []*Event
-	err = loadCSV("./data/events.csv", &events)
+	var events []*model.Event
+	err = LoadCSV("./data/events.csv", &events)
 	if err != nil {
 		return nil, nil, nil, nil, err
 	}
