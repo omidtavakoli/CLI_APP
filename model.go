@@ -30,3 +30,16 @@ type Commit struct {
 	Message string `csv:"message"`
 	EventID int64  `csv:"event_id"`
 }
+
+type StringSlice struct {
+	slice []string
+}
+type IntegerSlice struct {
+	slice []int64
+}
+
+type Stats struct {
+	TopUsers          []string
+	TopReposByCommit  []string
+	TopReposByWatches []string
+}

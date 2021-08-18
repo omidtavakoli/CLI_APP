@@ -1,1 +1,1 @@
-go build -o cli . && chmod +x cli
+go build -o bin/cli . && chmod +x bin/cli

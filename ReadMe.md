@@ -1,3 +1,5 @@
 go get all
 chmod +x build.sh
-./cli --help
+./bin/cli --help
+
+to run all tests : go test -v
