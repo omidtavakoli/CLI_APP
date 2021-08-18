@@ -11,4 +11,4 @@ Run `go test -v` to test before build.
 
 Run `chmod +x build.sh` to grant permission for build.
 
-Run `./bin/cli --help` to get help.
+Run `./bin/cli_app --help` to get help.
